@@ -32,8 +32,9 @@ f2 = sparse(n,n);
 for pp=1:d
     f2 = f2 + B.D{pp}'*spdiags(B.W.*B.F2{pp,pp}(vv{:}),0,m,m)*B.D{pp};
     for qq=1:pp-1
-        f2 = f2 + (B.D{pp}'*spdiags(B.W.*B.F2{pp,qq}(vv{:}),0,m,m)*B.D{qq}) ...
-            +(B.D{qq}'*spdiags(B.W.*B.F2{pp,qq}(vv{:}),0,m,m)*B.D{pp});
+        Fpq = B.W.*B.F2{pp,qq}(vv{:});
+        f2 = f2 + (B.D{pp}'*spdiags(Fpq,0,m,m)*B.D{qq}) ...
+            +(B.D{qq}'*spdiags(Fpq,0,m,m)*B.D{pp});
     end
 end
 end
